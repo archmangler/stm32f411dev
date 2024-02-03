@@ -1,5 +1,0 @@
-../Src/main.c:12:5:main	2
-../Src/main.c:103:6:loop_test_porta	1
-../Src/main.c:187:6:loop_test_porta_clear	1
-../Src/main.c:193:6:my_delay_long	2
-../Src/main.c:199:6:my_delay_short	2

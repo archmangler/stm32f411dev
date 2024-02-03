@@ -6,7 +6,11 @@
 void my_delay_long(void);
 void my_delay_short(void);
 
-void loop_test_porta(void);
+void loop_test_one_porta(void);
+void loop_test_two_porta(void);
+void loop_test_three_porta(void);
+void loop_test_four_porta(void);
+
 void loop_test_porta_clear(void);
 
 int main(void)
@@ -87,22 +91,53 @@ int main(void)
 	GPIOC->MODER &=~(1U<<26);
 	GPIOC->MODER &=~(1U<<27);
 
+	/*Set PINC12 as input pin*/
+	GPIOC->MODER &=~(1U<<24);
+	GPIOC->MODER &=~(1U<<25);
+
+	/*Set PINC11 as input pin*/
+	GPIOC->MODER &=~(1U<<22);
+	GPIOC->MODER &=~(1U<<23);
+
+	/*Set PINC10 as input pin*/
+	GPIOC->MODER &=~(1U<<20);
+	GPIOC->MODER &=~(1U<<21);
+
     while(1) {
 
-        if (GPIOC->IDR & 0x2000) {
-
+        if (GPIOC->IDR &  0b0010000000000000) { //0x 2 0 0 0 -> 0x 0010 0000 00000 0000
             loop_test_porta_clear();
-
         } else {
-
-        	loop_test_porta();
-
+        	loop_test_one_porta();
         }
+
+        //check the next button
+
+        if (GPIOC->IDR &  0b0001000000000000) {
+            loop_test_porta_clear();
+        } else {
+        	loop_test_two_porta();
+        }
+
+
+        if (GPIOC->IDR &  0b0000100000000000) {
+            loop_test_porta_clear();
+        } else {
+        	loop_test_three_porta();
+        }
+
+        if (GPIOC->IDR &  0b0000010000000000) {
+            loop_test_porta_clear();
+        } else {
+        	loop_test_four_porta();
+        }
+
+
     }
 
 }
 
-void loop_test_porta(void) {
+void loop_test_one_porta(void) {
 /*
 	//A15
     GPIOA->BSRR = 0b00000000000000001000000000000000;
@@ -185,6 +220,216 @@ void loop_test_porta(void) {
     loop_test_porta_clear();
 
 }
+
+void loop_test_two_porta(void) {
+
+	//A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+	//A9
+    GPIOA->BSRR = 0b00000000000000000000001000000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+	//A7
+    GPIOA->BSRR = 0b00000000000000000000000010000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A6
+    GPIOA->BSRR = 0b00000000000000000000000001000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+	//A8
+    GPIOA->BSRR = 0b00000000000000000000000100000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+	//A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+   //A5
+    GPIOA->BSRR = 0b00000000000000000000000000100000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A3
+    GPIOA->BSRR = 0b00000000000000000000000000001000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+	//A12
+    GPIOA->BSRR = 0b00000000000000000001000000000000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A2
+    GPIOA->BSRR = 0b00000000000000000000000000000100;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A4
+    GPIOA->BSRR = 0b00000000000000000000000000010000;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A0
+    GPIOA->BSRR = 0b00000000000000000000000000000001;
+    my_delay_long();
+    loop_test_porta_clear();
+
+    //A1
+    GPIOA->BSRR = 0b00000000000000000000000000000010;
+    my_delay_long();
+    loop_test_porta_clear();
+
+}
+
+
+void loop_test_three_porta(void) {
+
+	//A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A9
+    GPIOA->BSRR = 0b00000000000000000000001000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A7
+    GPIOA->BSRR = 0b00000000000000000000000010000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A6
+    GPIOA->BSRR = 0b00000000000000000000000001000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A8
+    GPIOA->BSRR = 0b00000000000000000000000100000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+   //A5
+    GPIOA->BSRR = 0b00000000000000000000000000100000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A3
+    GPIOA->BSRR = 0b00000000000000000000000000001000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A12
+    GPIOA->BSRR = 0b00000000000000000001000000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A2
+    GPIOA->BSRR = 0b00000000000000000000000000000100;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A4
+    GPIOA->BSRR = 0b00000000000000000000000000010000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A0
+    GPIOA->BSRR = 0b00000000000000000000000000000001;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A1
+    GPIOA->BSRR = 0b00000000000000000000000000000010;
+    my_delay_short();
+    loop_test_porta_clear();
+
+}
+
+
+void loop_test_four_porta(void) {
+
+    //A3
+    GPIOA->BSRR = 0b00000000000000000000000000001000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A7
+    GPIOA->BSRR = 0b00000000000000000000000010000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A6
+    GPIOA->BSRR = 0b00000000000000000000000001000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A8
+    GPIOA->BSRR = 0b00000000000000000000000100000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A9
+    GPIOA->BSRR = 0b00000000000000000000001000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A0
+    GPIOA->BSRR = 0b00000000000000000000000000000001;
+    my_delay_short();
+    loop_test_porta_clear();
+
+	//A12
+    GPIOA->BSRR = 0b00000000000000000001000000000000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A2
+    GPIOA->BSRR = 0b00000000000000000000000000000100;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A4
+    GPIOA->BSRR = 0b00000000000000000000000000010000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A1
+    GPIOA->BSRR = 0b00000000000000000000000000000010;
+    my_delay_short();
+    loop_test_porta_clear();
+
+    //A5
+    GPIOA->BSRR = 0b00000000000000000000000000100000;
+    my_delay_short();
+    loop_test_porta_clear();
+
+}
+
 
 void loop_test_porta_clear(void) {
 //	GPIOA->BSRR = 0b11111111111111110000000000000000;
