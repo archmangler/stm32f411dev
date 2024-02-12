@@ -11,6 +11,11 @@ void loop_test_one_porta(void);
 void loop_test_two_porta(void);
 void loop_test_three_porta(void);
 void loop_test_four_porta(void);
+void music_routine_001(void);
+void my_delay_shorter(void);
+void my_delay_shortest(void);
+void my_delay_medium(void);
+
 
 void inc_fwd_a0(void);
 void inc_rev_a1(void);
@@ -121,25 +126,35 @@ int main(void)
         if (GPIOC->IDR &  0b0010000000000000) { //0x 2 0 0 0 -> 0x 0010 0000 00000 0000
             loop_test_porta_clear();
         } else {
+
         	loop_test_one_porta();
+        	music_routine_001();
+        	my_delay_longer(); //relax a while to cool the batteries off
         }
 
         if (GPIOC->IDR &  0b0001000000000000) {
             loop_test_porta_clear();
         } else {
         	loop_test_two_porta();
+        	music_routine_001();
+        	my_delay_longer(); //relax a while to cool the batteries off
         }
 
         if (GPIOC->IDR &  0b0000100000000000) {
             loop_test_porta_clear();
         } else {
         	loop_test_three_porta();
+        	music_routine_001();
+        	my_delay_longer(); //relax a while to cool the batteries off
         }
 
         if (GPIOC->IDR &  0b0000010000000000) {
             loop_test_porta_clear();
         } else {
         	loop_test_four_porta();
+        	music_routine_001();
+        	my_delay_longer(); //relax a while to cool the batteries off
+
         }
 
     	/*    	//PINC-9
@@ -454,7 +469,33 @@ void loop_test_four_porta(void) {
     my_delay_short();
     loop_test_porta_clear();
 
+}
 
+void music_routine_001(void) {
+    //A0
+    //GPIOA->BSRR = 0b00000000000000000000000000000001;
+    //A6
+	for (int i=0;i<10;i++) {
+		GPIOA->BSRR = 0b00000000000000000000000000100000;
+		my_delay_short();
+		loop_test_porta_clear();
+
+		GPIOA->BSRR = 0b00000000000000000000000000100000;
+		my_delay_shorter();
+		loop_test_porta_clear();
+		my_delay_shorter();
+
+		GPIOA->BSRR = 0b00000000000000000000000000100000;
+		my_delay_medium();
+		loop_test_porta_clear();
+		my_delay_short();
+		for (int i=0;i<10;i++) {
+			GPIOA->BSRR = 0b00000000000000000000000000100000;
+			my_delay_shorter();
+			loop_test_porta_clear();
+			my_delay_shortest();
+		}
+	}
 
 }
 
@@ -491,8 +532,26 @@ void my_delay_long(void) {
 	}
 }
 
+void my_delay_medium(void) {
+    for(int i=0;i<500000;i++){
+		//do nothing
+	}
+}
+
 void my_delay_short(void) {
     for(int i=0;i<100000;i++){
+		//do nothing
+	}
+}
+
+void my_delay_shorter(void) {
+    for(int i=0;i<10000;i++){
+		//do nothing
+	}
+}
+
+void my_delay_shortest(void) {
+    for(int i=0;i<1000;i++){
 		//do nothing
 	}
 }

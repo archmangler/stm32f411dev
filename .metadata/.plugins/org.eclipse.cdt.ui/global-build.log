@@ -1,28 +1,14 @@
-19:22:39 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_working ****
+22:06:56 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_working ****
 make -j15 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F411RETx -DSTM32F411XE=STM32F411xE -c -I../Inc -I/Users/welcome/STM32CubeIDE/workspace_1.14.0/chip_headers/CMSIS/Include -I/Users/welcome/STM32CubeIDE/workspace_1.14.0/chip_headers/CMSIS/Device/ST/STM32F4xx/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "pushbutton_gpio_input_bsrr_working.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/welcome/STM32CubeIDE/workspace_1.14.0/pushbutton_gpio_input_bsrr_working/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="pushbutton_gpio_input_bsrr_working.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: pushbutton_gpio_input_bsrr_working.elf
- 
 arm-none-eabi-size  pushbutton_gpio_input_bsrr_working.elf 
-arm-none-eabi-objdump -h -S pushbutton_gpio_input_bsrr_working.elf  > "pushbutton_gpio_input_bsrr_working.list"
    text	   data	    bss	    dec	    hex	filename
-   2160	      8	   1568	   3736	    e98	pushbutton_gpio_input_bsrr_working.elf
+   2444	      8	   1568	   4020	    fb4	pushbutton_gpio_input_bsrr_working.elf
 Finished building: default.size.stdout
  
-Finished building: pushbutton_gpio_input_bsrr_working.list
- 
-19:22:48 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_working ****
+22:07:02 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_working ****
 make -j15 all 
 arm-none-eabi-size  pushbutton_gpio_input_bsrr_working.elf 
    text	   data	    bss	    dec	    hex	filename
-   2160	      8	   1568	   3736	    e98	pushbutton_gpio_input_bsrr_working.elf
-Finished building: default.size.stdout
- 
-19:22:50 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_working ****
-make -j15 all 
-arm-none-eabi-size  pushbutton_gpio_input_bsrr_working.elf 
-   text	   data	    bss	    dec	    hex	filename
-   2160	      8	   1568	   3736	    e98	pushbutton_gpio_input_bsrr_working.elf
+   2444	      8	   1568	   4020	    fb4	pushbutton_gpio_input_bsrr_working.elf
 Finished building: default.size.stdout
  
