@@ -3,6 +3,7 @@
 #define GPIOAEN (1U<<0)
 #define GPIOCEN	(1U<<2)
 
+void my_delay_longer(void);
 void my_delay_long(void);
 void my_delay_short(void);
 
@@ -10,6 +11,9 @@ void loop_test_one_porta(void);
 void loop_test_two_porta(void);
 void loop_test_three_porta(void);
 void loop_test_four_porta(void);
+
+void inc_fwd_a0(void);
+void inc_rev_a1(void);
 
 void loop_test_porta_clear(void);
 
@@ -103,6 +107,15 @@ int main(void)
 	GPIOC->MODER &=~(1U<<20);
 	GPIOC->MODER &=~(1U<<21);
 
+	/*END CONDITION SWITCH 1: Set PINC09 as input pin*/
+	//GPIOC->MODER &=~(1U<<18);
+	//GPIOC->MODER &=~(1U<<19);
+
+	/*END CONDITION SWITCH 2: Set PINC08 as input pin*/
+	//GPIOC->MODER &=~(1U<<16);
+	//GPIOC->MODER &=~(1U<<17);
+
+
     while(1) {
 
         if (GPIOC->IDR &  0b0010000000000000) { //0x 2 0 0 0 -> 0x 0010 0000 00000 0000
@@ -111,14 +124,11 @@ int main(void)
         	loop_test_one_porta();
         }
 
-        //check the next button
-
         if (GPIOC->IDR &  0b0001000000000000) {
             loop_test_porta_clear();
         } else {
         	loop_test_two_porta();
         }
-
 
         if (GPIOC->IDR &  0b0000100000000000) {
             loop_test_porta_clear();
@@ -132,10 +142,25 @@ int main(void)
         	loop_test_four_porta();
         }
 
+    	/*    	//PINC-9
+        if (GPIOC->IDR &  0b0000001000000000) {
+            loop_test_porta_clear();
+        } else {
+        	inc_rev_a1();
+        }
+
+        //PINC-8
+        if (GPIOC->IDR &  0b0000000100000000) {
+            loop_test_porta_clear();
+        } else {
+        	inc_fwd_a0();
+        }
+        */
 
     }
 
 }
+
 
 void loop_test_one_porta(void) {
 /*
@@ -238,15 +263,6 @@ void loop_test_two_porta(void) {
     my_delay_long();
     loop_test_porta_clear();
 
-    //A6
-    GPIOA->BSRR = 0b00000000000000000000000001000000;
-    my_delay_long();
-    loop_test_porta_clear();
-
-	//A8
-    GPIOA->BSRR = 0b00000000000000000000000100000000;
-    my_delay_long();
-    loop_test_porta_clear();
 
 	//A11
     GPIOA->BSRR = 0b00000000000000000000100000000000;
@@ -287,6 +303,16 @@ void loop_test_two_porta(void) {
     GPIOA->BSRR = 0b00000000000000000000000000000010;
     my_delay_long();
     loop_test_porta_clear();
+
+
+    //Drive the stepper motor which needs both relays driven from independent power sources.
+    //A6
+    GPIOA->BSRR = 0b00000000000000000000000001000000;
+    //A8
+    GPIOA->BSRR = 0b00000000000000000000000100000000;
+    my_delay_longer();
+    loop_test_porta_clear();
+
 
 }
 
@@ -428,13 +454,35 @@ void loop_test_four_porta(void) {
     my_delay_short();
     loop_test_porta_clear();
 
+
+
 }
 
+//incremental reverse to a motor drive
+void inc_rev_a1(void) {
+    //A1
+    GPIOA->BSRR = 0b00000000000000000000000000000010;
+    my_delay_short();
+    loop_test_porta_clear();
+}
+
+//incremental forward to a motor drive
+void inc_fwd_a0(void) {
+    //A0
+    GPIOA->BSRR = 0b00000000000000000000000000000001;
+    my_delay_short();
+    loop_test_porta_clear();
+}
 
 void loop_test_porta_clear(void) {
-//	GPIOA->BSRR = 0b11111111111111110000000000000000;
 	GPIOA->BSRR = 0b00011111111111110000000000000000;
     my_delay_short();
+}
+
+void my_delay_longer(void) {
+    for(int i=0;i<50000000;i++){
+		//do nothing
+	}
 }
 
 void my_delay_long(void) {

@@ -1,0 +1,149 @@
+#include "stm32f411xe.h"
+
+#define GPIOAEN (1U<<0)
+#define GPIOBEN	(1U<<0)
+#define GPIOCEN	(1U<<2)
+
+void my_delay_long(void);
+void my_delay_short(void);
+
+void loop_test_one_portb(void);
+void loop_test_portb_clear(void);
+void loop_test_portb_unclear(void);
+
+int main(void)
+{
+
+	RCC->AHB1ENR |= GPIOAEN;
+	RCC->AHB1ENR |= GPIOBEN;
+	RCC->AHB1ENR |= GPIOCEN;
+
+	/*set pin A0 as an output pin*/
+	GPIOA->MODER |= (1U<<0);
+	GPIOA->MODER &=~(1U<<1);
+
+	/*Set PINC09 as input pin*/
+	GPIOC->MODER &=~(1U<<18);
+	GPIOC->MODER &=~(1U<<19);
+
+	/*Set PINC08 as input pin*/
+	GPIOC->MODER &=~(1U<<16);
+	GPIOC->MODER &=~(1U<<17);
+
+	//set pin PB0 as an output pin
+	GPIOB->MODER |= (1U<<0);
+	GPIOB->MODER &=~(1U<<1);
+
+	//set pin PB1 as an output pin
+	GPIOB->MODER |= (1U<<2);
+	GPIOB->MODER &=~(1U<<3);
+
+	//set pin PB2 as an output pin
+	GPIOB->MODER |= (1U<<4);
+	GPIOB->MODER &=~(1U<<5);
+
+	//set pin PB3 as an output pin
+	GPIOB->MODER |= (1U<<6);
+	GPIOB->MODER &=~(1U<<7);
+
+	//set pin PB4 as an output pin
+	GPIOB->MODER |= (1U<<8);
+	GPIOB->MODER &=~(1U<<9);
+
+	//set pin PB5 as an output pin
+	GPIOB->MODER |= (1U<<10);
+	GPIOB->MODER &=~(1U<<11);
+
+	//set pin PB6 as an output pin
+	GPIOB->MODER |= (1U<<12);
+	GPIOB->MODER &=~(1U<<13);
+
+  	while(1) {
+
+    	//PINC-9
+        if (GPIOC->IDR &  0b0000001000000000) {
+            loop_test_porta_clear();
+        } else {
+        	loop_test_five_porta();
+          	loop_test_one_portb();
+
+        }
+
+        //PINC-8
+        if (GPIOC->IDR &  0b0000000100000000) {
+            loop_test_porta_clear();
+        } else {
+        	loop_test_six_porta();
+          	loop_test_one_portb();
+        }
+
+
+  	}
+
+}
+
+void loop_test_one_portb(void) {
+
+    //PB0
+    GPIOB->BSRR = 0b00000000000000000000000000000001;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB1
+    GPIOB->BSRR = 0b00000000000000000000000000000010;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB2
+    GPIOB->BSRR = 0b00000000000000000000000000000100;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB3
+    GPIOB->BSRR = 0b00000000000000000000000000001000;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB4
+    GPIOB->BSRR = 0b00000000000000000000000000010000;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB5
+    GPIOB->BSRR = 0b00000000000000000000000000100000;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB6
+    GPIOB->BSRR = 0b00000000000000000000000001000000;
+    my_delay_long();
+    loop_test_portb_clear();
+
+	//PB7
+    GPIOB->BSRR = 0b00000000000000000000000010000000;
+    my_delay_long();
+    loop_test_portb_clear();
+
+}
+
+void loop_test_portb_clear(void) {
+	GPIOB->BSRR = 0b00011111111111110000000000000000;
+    my_delay_short();
+}
+
+void loop_test_portb_unclear(void) {
+	GPIOB->BSRR = 0b00000000000000000000000000000000;
+    my_delay_short();
+}
+
+void my_delay_long(void) {
+    for(int i=0;i<1000000;i++){
+		//do nothing
+	}
+}
+
+void my_delay_short(void) {
+    for(int i=0;i<100000;i++){
+		//do nothing
+	}
+}

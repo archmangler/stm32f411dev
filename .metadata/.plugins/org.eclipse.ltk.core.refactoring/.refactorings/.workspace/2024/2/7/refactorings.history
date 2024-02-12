@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;pushbutton_gpio_input_bsrr_portb_fix/Debug/pushbutton_gpio_input_bsrr_working2.elf&apos;" deleteContents="false" description="Delete resource &apos;pushbutton_gpio_input_bsrr_portb_fix/Debug/pushbutton_gpio_input_bsrr_working2.elf&apos;" element1="/pushbutton_gpio_input_bsrr_portb_fix/Debug/pushbutton_gpio_input_bsrr_working2.elf" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1707717532697"/>
+</session>

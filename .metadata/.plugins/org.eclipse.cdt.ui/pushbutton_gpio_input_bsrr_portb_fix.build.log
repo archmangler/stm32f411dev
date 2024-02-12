@@ -1,0 +1,10 @@
+14:46:47 **** Incremental Build of configuration Debug for project pushbutton_gpio_input_bsrr_portb_fix ****
+make -j15 all 
+arm-none-eabi-size  pushbutton_gpio_input_bsrr_portb_fix.elf 
+   text	   data	    bss	    dec	    hex	filename
+    904	      8	   1568	   2480	    9b0	pushbutton_gpio_input_bsrr_portb_fix.elf
+Finished building: default.size.stdout
+ 
+
+14:46:47 Build Finished. 0 errors, 0 warnings. (took 125ms)
+
