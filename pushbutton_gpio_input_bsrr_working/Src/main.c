@@ -1,8 +1,16 @@
+/* version 1.0.0
+ * Core Drive code for the electromechanical  features of the "METRON-5" maze-based toy.
+ * Copyright Engeneon Internet Products Pty. Ltd 2004
+ * Author: Traiano G. Welcome
+ *
+ * */
+
 #include "stm32f411xe.h"
 
 #define GPIOAEN (1U<<0)
 #define GPIOCEN	(1U<<2)
 
+void my_delay_longest(void);
 void my_delay_longer(void);
 void my_delay_long(void);
 void my_delay_short(void);
@@ -194,6 +202,14 @@ void loop_test_one_porta(void) {
     my_delay_long();
     loop_test_porta_clear();
 */
+    //Drive the linear motor which needs both relays driven from independent power sources.
+    //A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    //A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_longest();
+    loop_test_porta_clear();
+
 	//A12
     GPIOA->BSRR = 0b00000000000000000001000000000000;
     my_delay_long();
@@ -262,6 +278,14 @@ void loop_test_one_porta(void) {
 }
 
 void loop_test_two_porta(void) {
+
+    //Drive the linear motor which needs both relays driven from independent power sources.
+    //A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    //A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_longest();
+    loop_test_porta_clear();
 
 	//A10
     GPIOA->BSRR = 0b00000000000000000000010000000000;
@@ -334,6 +358,14 @@ void loop_test_two_porta(void) {
 
 void loop_test_three_porta(void) {
 
+    //Drive the linear motor which needs both relays driven from independent power sources.
+    //A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    //A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_longest();
+    loop_test_porta_clear();
+
 	//A10
     GPIOA->BSRR = 0b00000000000000000000010000000000;
     my_delay_short();
@@ -399,10 +431,20 @@ void loop_test_three_porta(void) {
     my_delay_short();
     loop_test_porta_clear();
 
+
 }
 
 
 void loop_test_four_porta(void) {
+
+    //Drive the linear motor which needs both relays driven from independent power sources.
+    //A11
+    GPIOA->BSRR = 0b00000000000000000000100000000000;
+    //A10
+    GPIOA->BSRR = 0b00000000000000000000010000000000;
+    my_delay_longest();
+    loop_test_porta_clear();
+
 
     //A3
     GPIOA->BSRR = 0b00000000000000000000000000001000;
@@ -469,6 +511,8 @@ void loop_test_four_porta(void) {
     my_delay_short();
     loop_test_porta_clear();
 
+
+
 }
 
 void music_routine_001(void) {
@@ -518,6 +562,12 @@ void inc_fwd_a0(void) {
 void loop_test_porta_clear(void) {
 	GPIOA->BSRR = 0b00011111111111110000000000000000;
     my_delay_short();
+}
+
+void my_delay_longest(void) {
+    for(int i=0;i<100000000;i++){
+		//do nothing
+	}
 }
 
 void my_delay_longer(void) {
